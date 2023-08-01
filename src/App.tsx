@@ -1,8 +1,17 @@
-import { z } from 'zod';
+import { ZodType, z } from 'zod';
 import './App.css';
 
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  age: number;
+  password: string;
+  confirmPassword: string;
+};
+
 function App() {
-  const schema = z
+  const schema: ZodType<FormData> = z
     .object({
       firstName: z.string().min(2).max(30),
       lastName: z.string().min(2).max(30),
