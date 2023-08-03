@@ -27,11 +27,17 @@ function App() {
       path: ['confirmPassword'],
     });
 
-  const { register } = useForm({ resolver: zodResolver(schema) });
+  const { register, handleSubmit } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  const submitData = (data: FormData) => {
+    console.log('works', data);
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit(submitData)}>
         <label>First Name: </label>
         <input type="text" {...register('firstName')} />
         <label>Last Name: </label>
@@ -39,7 +45,7 @@ function App() {
         <label>Email: </label>
         <input type="email" {...register('email')} />
         <label>Age: </label>
-        <input type="number" {...register('age')} />
+        <input type="number" {...register('age', { valueAsNumber: true })} />
         <label>Password: </label>
         <input type="password" {...register('password')} />
         <label>Confirm Password: </label>
